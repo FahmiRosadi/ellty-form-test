@@ -24,50 +24,57 @@ export default function App() {
   };
 
   const toggleAll = () => {
-    if (allChecked) {
-      setCheckedPages([]);
-    } else {
-      setCheckedPages(pages);
-    }
+    setCheckedPages(allChecked ? [] : pages);
   };
 
   return (
     <div className="wrapper">
       <div className="card">
 
-        {/* ALL PAGES */}
-        <label className="row">
-          <span>All pages</span>
-          <input
-            type="checkbox"
-            checked={allChecked}
-            onChange={toggleAll}
-          />
-          <span className="checkmark"></span>
-        </label>
+        {/* CONTENT */}
+        <div className="content">
 
-        <div className="divider" />
-
-        {/* LIST */}
-        {pages.map((page) => (
-          <label key={page} className="row">
-            <span>{page}</span>
+          <label className="row">
+            <span>All pages</span>
             <input
               type="checkbox"
-              checked={checkedPages.includes(page)}
-              onChange={() => togglePage(page)}
+              checked={allChecked}
+              onChange={toggleAll}
             />
             <span className="checkmark"></span>
           </label>
-        ))}
-      <div className="divider divider-bottom"></div>
-        {/* BUTTON */}
-        <button
-          className={`btn ${checkedPages.length ? "active" : "disabled"}`}
-          disabled={!checkedPages.length}
-        >
-          Done
-        </button>
+
+          <div className="divider"></div>
+
+          {pages.map((page, index) => (
+            <label
+              key={page}
+              className={`row ${index === 3 ? "space-after-page4" : ""}`}
+            >
+              <span>{page}</span>
+              <input
+                type="checkbox"
+                checked={checkedPages.includes(page)}
+                onChange={() => togglePage(page)}
+              />
+              <span className="checkmark"></span>
+            </label>
+          ))}
+
+        </div>
+
+        {/* FOOTER */}
+        <div className="footer">
+        <div className="footer-divider"></div>
+
+
+          <button
+            className={`btn ${checkedPages.length ? "active" : "disabled"}`}
+            disabled={!checkedPages.length}
+          >
+            Done
+          </button>
+        </div>
 
       </div>
     </div>
